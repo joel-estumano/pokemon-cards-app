@@ -1,0 +1,48 @@
+<div class="w-full mx-auto p-4 fade-in">
+  <div class="flex flex-wrap">
+    <div class="block w-full p-2" [ngClass]="show ? 'md:w-2/3': 'md:w-3/3'">
+
+      <form class="max-w-sm mx-auto mb-4">
+        <div class="relative">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            </svg>
+          </div>
+          <input type="text" id="email-address-icon" [formControl]="formControl"
+            class="bg-gray-50 border border-gray-300 text-lg font-semibold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 text-gray-500 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search by name" />
+        </div>
+      </form>
+
+      <div class="fade-in" *ngIf="paginateResult$ | async as paginateResult; else loading">
+        <div *ngIf="paginateResult.count !== 0; else notfound">
+          <app-nav-pagination [paginate]="paginateResult" (navigate)="navigateToPage($event)" />
+          <div class="flex flex-wrap justify-center">
+            <div class="w-auto flex flex-col items-center" *ngFor="let card of paginateResult.data"
+              [dndDraggable]="card" [dndDisableIf]="draggable.disable" (dndStart)="onDragStart($event)"
+              (dndCopied)="onDraggableCopied($event)" (dndLinked)="onDraggableLinked($event)"
+              (dndMoved)="onDraggableMoved($event)" (dndCanceled)="onDragCanceled($event)" (dndEnd)="onDragEnd($event)">
+              <app-card [card]="card" (onClick)="onClickFn($event)" />
+            </div>
+          </div>
+          <app-nav-pagination [paginate]="paginateResult" (navigate)="navigateToPage($event)" />
+        </div>
+        <ng-template #notfound>
+          <app-not-found />
+        </ng-template>
+      </div>
+
+    </div>
+
+    <div *ngIf="show" class="block w-full md:w-1/3 fixed md:top-20 md:right-4 md:bottom-4 overflow-auto fade-in">
+      <app-manage-decks [add]="true" [list]="true" [edit]="true" />
+    </div>
+
+  </div>
+  <ng-template #loading>
+    <app-loading />
+  </ng-template>
+</div>

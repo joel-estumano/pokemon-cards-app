@@ -1,0 +1,13 @@
+<button type="button" [ngClass]="isLarge ? '' : 'card-grow'"
+    class="group/item_ flex flex-col items-center rounded-lg shadow md:flex-row md:max-w-xl hover:shadow-xl dark:bg-gray-800 m-3 shadow-lg flex justify-center">
+    <img (click)="onClickFn(card)" class="object-cover w-full rounded-lg" [ngClass]="isLarge ? 'md:h-auto' : ''"
+        src="{{ card.images[size] }}" [ngClass]="autoHeight ? '' : 'h-96'" [alt]="card.name" />
+    <button *ngIf="remove"
+        class="absolute hidden group-hover/item_:inline-flex items-center justify-center w-6 h-6 text-sm font-bold text-white bg-red-500 border-2 border-white rounded-full top-4 -end-2 dark:border-gray-900"
+        (click)="onClickRemoveFn(card)">
+        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+    </button>
+</button>

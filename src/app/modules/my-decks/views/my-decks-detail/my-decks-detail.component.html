@@ -1,0 +1,8 @@
+<div class="max-w-screen-xl mx-auto p-4 fade-in">
+    <div *ngIf="deck$ | async as deck; else loading">
+        <app-deck-detail [deck]="deck" />
+    </div>
+    <ng-template #loading>
+        <app-loading />
+    </ng-template>
+</div>

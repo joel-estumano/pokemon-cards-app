@@ -1,0 +1,76 @@
+<ngx-smart-modal #modalAdd [identifier]="'modalAdd'" [hideDelay]="0"
+    [ngClass]="'block text-blue-600 dark:text-blue-500 bg-white dark:bg-gray-800'">
+    <form role="form" class="p-5" [formGroup]="form" (submit)="onSubmit()" dndDropzone (dndDrop)="onDrop($event)">
+        <div class="mb-5">
+            <label class="block mb-2 text-sm font-medium" [ngClass]="
+          formService.class(
+            form.controls[namesEnum.name],
+            'text-green-700 dark:text-green-500',
+            'text-red-700 dark:text-red-500'
+          )
+        ">
+                Enter your deck name here</label>
+            <input type="text" formControlName="name"
+                class="block w-full px-4 py-2 text-lg font-semibold border rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 text-gray-500 dark:text-white"
+                placeholder="Type here" [ngClass]="
+          formService.class(
+            form.controls[namesEnum.name],
+            'border-green-500 focus:ring-green-500 focus:border-green-500 dark:border-green-400',
+            'border-red-500 focus:ring-red-500 focus:border-red-500 dark:border-red-400'
+          )
+        " />
+            <span
+                *ngIf="(form.controls[namesEnum.name].dirty || form.controls[namesEnum.name].touched) && form.controls[namesEnum.name].errors"
+                class="mx-2 text-sm text-red-700 dark:text-red-500"> Deck name is required! </span>
+
+        </div>
+        <label class="block text-sm font-medium" [ngClass]="
+    formService.class(
+      form.controls[namesEnum.cards],
+      'text-green-700 dark:text-green-500',
+      'text-red-700 dark:text-red-500'
+    )
+  ">
+            Choose your cards and drag them here
+        </label>
+        <div class="block text-sm rounded-lg mb-1 text-gray-500">
+            <span class="text-2xl font-medium me-1">{{formCards.length}}cards</span>
+            <span class="text-1xl font-medium me-1">Min.{{roles.min}}</span>
+            <span class="text-1xl font-medium me-1">Max.{{roles.max}}</span>
+        </div>
+
+        <div class="border-dashed border-2 border-gray-300 dark:border-gray-500 rounded-lg min-h-[20vh] p-2"
+            [ngClass]="formService.class(form.controls[namesEnum.cards],'border-green-500 dark:border-green-500','border-red-500 dark:border-red-500')">
+            <swiper-container appSwiper #swiper [config]="swiperConfig">
+                <swiper-slide [ngClass]="'flex justify-center'" *ngFor="let card of (form.value.cards).reverse()">
+                    <div class="flex flex-col items-center">
+                        <app-card [card]="card" [autoHeight]="true" [remove]="true" (onRemove)="removeCard(card)" />
+                        <span class="text-sm text-gray-400 dark:text-gray-500 text-center">{{ card.name }}</span>
+                    </div>
+                </swiper-slide>
+            </swiper-container>
+        </div>
+
+        <span *ngIf="formCards.dirty && formCards.errors && formCards.errors['length']"
+            class="block mx-2 text-sm text-red-700 dark:text-red-500">
+            The deck requires a minimum of {{ formCards.errors['length'].min }} and a maximum of {{
+            formCards.errors['length'].max }} cards </span>
+
+        <span *ngIf="formCards.dirty && formCards.errors && formCards.errors['maxReps']"
+            class="block mx-2 text-sm text-red-700 dark:text-red-500">
+
+            The deck cannot have more than {{ formCards.errors['maxReps'].max }} cards with repeated names </span>
+
+        <div class="flex w-full justify-center md:justify-end mt-4 gap-2">
+            <button type="submit"
+                class="capitalize px-3 py-2 text-sm text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2">
+                save
+            </button>
+            <button type="button" (click)="modalAdd.close()"
+                class="capitalize px-3 py-2 text-sm text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-violet-300 dark:focus:ring-violet-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2">
+                cancel
+            </button>
+        </div>
+
+    </form>
+</ngx-smart-modal>
