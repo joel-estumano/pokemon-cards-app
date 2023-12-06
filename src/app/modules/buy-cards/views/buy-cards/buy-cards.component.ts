@@ -43,7 +43,11 @@ export class BuyCardsComponent {
         });
         this.paginateResult$ = this.apiService
           .getAll(paginateQuery)
-          .pipe(tap(() => this.show = true));
+          .pipe(tap(() => {
+            setTimeout(() => {
+              this.show = true;
+            }, 300);
+          }));
       });
 
     this.formControl.valueChanges
