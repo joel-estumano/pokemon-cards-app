@@ -14,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DndModule } from 'ngx-drag-drop';
 import { RouterModule } from '@angular/router';
 import { DeckDetailComponent } from './deck-detail/deck-detail.component';
+import { DraggableContainerComponent } from './draggable-container/draggable-container.component';
+import { DraggableContainerDirective } from './draggable-container/draggable-container.directive';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,9 @@ import { DeckDetailComponent } from './deck-detail/deck-detail.component';
     SwiperDirective,
     ManageDecksComponent,
     AddDeckComponent,
+
+    DraggableContainerComponent,
+    DraggableContainerDirective
   ],
   imports: [
     CommonModule,
@@ -46,6 +51,9 @@ import { DeckDetailComponent } from './deck-detail/deck-detail.component';
     CardPricesPipe,
     SwiperDirective,
     ManageDecksComponent,
+
+    //DraggableContainerComponent,
+    DraggableContainerDirective,
 
     DndModule,
   ],
