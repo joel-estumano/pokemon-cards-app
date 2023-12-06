@@ -26,7 +26,6 @@ export class BuyCardsComponent {
   formControl = new FormControl();
   private paginateQuery!: PaginateQueryType;
   paginateResult$!: Observable<PaginateResultType>;
-  show: boolean = false;
 
   constructor(
     private readonly apiService: ApiService,
@@ -43,11 +42,7 @@ export class BuyCardsComponent {
         });
         this.paginateResult$ = this.apiService
           .getAll(paginateQuery)
-          .pipe(tap(() => {
-            setTimeout(() => {
-              this.show = true;
-            }, 300);
-          }));
+          .pipe(tap(console.log));
       });
 
     this.formControl.valueChanges
