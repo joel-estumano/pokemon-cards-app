@@ -50,8 +50,9 @@ export class DraggableContainerDirective
       this.elementRef.nativeElement.parentElement.offsetHeight * 2 +
       this.elementRef.nativeElement.offsetHeight;
 
-    this.element.style.transform =
-      'translate3d(' + this.currentX + 'px, ' + this.currentY + 'px, 0)';
+    /* this.element.style.transform =
+      'translate3d(' + this.currentX + 'px, ' + this.currentY + 'px, 0)'; */
+    this.element.style.transform = 'translate(' + this.currentX + 'px, ' + this.currentY + 'px)';
   }
 
   initDrag(): void {
