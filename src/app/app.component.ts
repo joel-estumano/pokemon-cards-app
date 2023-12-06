@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ThemeModeTtype } from './types/theme-mode.type';
 import { themeMode } from './store/theme-mode/theme-mode.seletor';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
