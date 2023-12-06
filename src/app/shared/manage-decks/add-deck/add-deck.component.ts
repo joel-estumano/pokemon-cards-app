@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { NgxSmartModalComponent, NgxSmartModalService } from 'ngx-smart-modal';
+import { Observable, Observer } from 'rxjs';
 import { CustomValidators } from 'src/app/form-validators/custom.validator';
+import { CanComponentDeactivate } from 'src/app/guards/can-deactivate-guard.service';
 import { FormService } from 'src/app/services/form.service';
 import { add, update } from 'src/app/store/decks/decks.actions';
 import { CardType } from 'src/app/types/card.type';
@@ -29,7 +31,7 @@ enum NamesEnum {
   templateUrl: './add-deck.component.html',
   styleUrl: './add-deck.component.scss',
 })
-export class AddDeckComponent implements AfterViewInit {
+export class AddDeckComponent implements AfterViewInit, CanComponentDeactivate {
   namesEnum = NamesEnum;
   form!: FormGroup;
   modalRef!: NgxSmartModalComponent;
@@ -57,9 +59,18 @@ export class AddDeckComponent implements AfterViewInit {
         [],
         [
           CustomValidators.minMaxLength(this.roles.min, this.roles.max),
-          CustomValidators.maxReps(this.roles.repeat.key, this.roles.repeat.limit),
+          CustomValidators.maxReps(
+            this.roles.repeat.key,
+            this.roles.repeat.limit
+          ),
         ]
       ),
+    });
+  }
+
+  canDeactivate() {
+    return new Observable((observer: Observer<boolean>) => {
+      observer.next(this.form.dirty || this.form.touched);
     });
   }
 
@@ -67,19 +78,24 @@ export class AddDeckComponent implements AfterViewInit {
     this.modalRef = this.ngxSmartModalService.get('modalAdd');
 
     this.modalRef.onDataAdded.subscribe((deck: DeckType) => {
+      this.form.patchValue(
+        { [this.namesEnum.id]: deck.id },
+        {
+          emitEvent: false,
+          onlySelf: true,
+        }
+      );
 
-      this.form.patchValue({ [this.namesEnum.id]: deck.id }, {
-        emitEvent: false,
-        onlySelf: true,
-      });
-
-      this.form.patchValue({ [this.namesEnum.name]: deck.name }, {
-        emitEvent: false,
-        onlySelf: true,
-      });
+      this.form.patchValue(
+        { [this.namesEnum.name]: deck.name },
+        {
+          emitEvent: false,
+          onlySelf: true,
+        }
+      );
 
       deck.cards.forEach((card: CardType) => {
-        this.addCard(card)
+        this.addCard(card);
       });
     });
 
@@ -130,7 +146,9 @@ export class AddDeckComponent implements AfterViewInit {
         );
       }
       this.modalRef.close();
-      if (!isEdit) { this.router.navigate([`my-decks`]); }
+      if (!isEdit) {
+        this.router.navigate([`my-decks`]);
+      }
     }
   }
 
