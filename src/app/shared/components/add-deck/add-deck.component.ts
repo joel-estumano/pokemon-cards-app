@@ -144,10 +144,6 @@ export class AddDeckComponent {
     }
   }
 
-  onClickFn(card: CardType) {
-    this.router.navigate([`buy-cards/detail/${card.id}`]);
-  }
-
   readonly swiperConfig: SwiperOptions = {
     spaceBetween: 0,
     watchSlidesProgress: true,

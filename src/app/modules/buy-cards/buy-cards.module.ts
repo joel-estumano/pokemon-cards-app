@@ -19,13 +19,13 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'detail/:id',
+    path: 'card/detail/:id',
     component: BuyCardsDetailComponent,
   },
   {
     path: 'buy-cards',
     component: BuyCardsComponent,
-    canDeactivate:[canDeactivateGuard]
+    canDeactivate: [canDeactivateGuard]
   },
 ];
 

@@ -62,7 +62,7 @@ export class ManageDecksComponent implements AfterViewInit {
   }
 
   cardDetail(card: CardType) {
-    this.router.navigate([`buy-cards/detail/${card.id}`]);
+    this.router.navigate([`card/detail/${card.id}`]);
   }
 
   deckDetail(deck: DeckType) {

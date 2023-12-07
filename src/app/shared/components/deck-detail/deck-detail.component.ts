@@ -19,7 +19,7 @@ export class DeckDetailComponent {
   }
 
   onClickFn(card: CardType) {
-    this.router.navigate([`buy-cards/detail/${card.id}`]);
+    this.router.navigate([`card/detail/${card.id}`]);
   }
 
   countSupertipe(type: 'Pokémon' | 'Trainer'): number {
