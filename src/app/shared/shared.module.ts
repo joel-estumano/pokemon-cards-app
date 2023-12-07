@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from './card/card.component';
-import { NavPaginationComponent } from './nav-pagination/nav-pagination.component';
-import { LoadingComponent } from './loading/loading.component';
+import { CardComponent } from './components/card/card.component';
+import { NavPaginationComponent } from './components/nav-pagination/nav-pagination.component';
+import { LoadingComponent } from './components/loading/loading.component';
 import { CardPricesPipe } from './pipes/card-prices.pipe';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { CardDetailComponent } from './card-detail/card-detail.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CardDetailComponent } from './components/card-detail/card-detail.component';
 import { SwiperDirective } from './directives/swiper.directive';
-import { ManageDecksComponent } from './manage-decks/manage-decks.component';
+import { ManageDecksComponent } from './components/manage-decks/manage-decks.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
-import { AddDeckComponent } from './manage-decks/add-deck/add-deck.component';
+import { AddDeckComponent } from './components/add-deck/add-deck.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DndModule } from 'ngx-drag-drop';
 import { RouterModule } from '@angular/router';
-import { DeckDetailComponent } from './deck-detail/deck-detail.component';
-import { DraggableContainerComponent } from './draggable-container/draggable-container.component';
-import { DraggableContainerDirective } from './draggable-container/draggable-container.directive';
+import { DeckDetailComponent } from './components/deck-detail/deck-detail.component';
+import { DraggableContainerModule } from './modules/draggable-container/draggable-container.module';
 
 @NgModule({
   declarations: [
@@ -28,18 +27,18 @@ import { DraggableContainerDirective } from './draggable-container/draggable-con
     CardPricesPipe,
     SwiperDirective,
     ManageDecksComponent,
-    AddDeckComponent,
 
-    DraggableContainerComponent,
-    DraggableContainerDirective
+    AddDeckComponent,
   ],
   imports: [
     CommonModule,
-    NgxSmartModalModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxSmartModalModule,
+    /* modules */
     DndModule,
-    RouterModule
+    DraggableContainerModule,
   ],
   exports: [
     CardComponent,
@@ -51,11 +50,9 @@ import { DraggableContainerDirective } from './draggable-container/draggable-con
     CardPricesPipe,
     SwiperDirective,
     ManageDecksComponent,
-
-    //DraggableContainerComponent,
-    DraggableContainerDirective,
-
+    /* modules */
     DndModule,
+    DraggableContainerModule,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

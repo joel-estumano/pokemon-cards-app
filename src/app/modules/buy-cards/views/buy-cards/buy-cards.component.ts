@@ -17,7 +17,7 @@ import { paginateQuery } from 'src/app/store/paginate/paginate-query.seletor';
 import { updatePaginateQuery } from 'src/app/store/paginate/paginate-query.actions';
 import { Router } from '@angular/router';
 import { CardType } from 'src/app/types/card.type';
-import { CanComponentDeactivate, CanDeactivateType } from 'src/app/guards/can-deactivate-guard.service';
+import { CanComponentDeactivate, CanDeactivateType } from 'src/app/guards/can-deactivate.guard';
 
 @Component({
   selector: 'app-buy-cards',

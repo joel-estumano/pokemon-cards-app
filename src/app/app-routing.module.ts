@@ -5,13 +5,6 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./modules/home/home.module').then(
-        (m) => m.HomeModule
-      ),
-  },
-  {
-    path: 'buy-cards',
-    loadChildren: () =>
       import('./modules/buy-cards/buy-cards.module').then(
         (m) => m.BuyCardsModule
       ),

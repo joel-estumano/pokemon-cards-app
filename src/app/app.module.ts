@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,8 @@ import { decksReducer } from './store/decks/decks.reducer';
 import { register } from 'swiper/element/bundle';
 import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
 import { HttpInterceptorProviders } from './interceptors';
+
+export const APP_NAME = new InjectionToken<string>('APP_NAME');
 
 register();
 
@@ -30,7 +32,9 @@ register();
     ),
     NgxSmartModalModule.forRoot(),
   ],
-  providers: [NgxSmartModalService, HttpInterceptorProviders],
+  providers: [
+    { provide: APP_NAME, useValue: 'Pokemon Cards' },
+    NgxSmartModalService, HttpInterceptorProviders],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

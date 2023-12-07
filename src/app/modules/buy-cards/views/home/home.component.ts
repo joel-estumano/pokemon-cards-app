@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SwiperOptions } from 'swiper/types';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../../../services/api.service';
 import { PaginateResultType } from 'src/app/types/paginate-result.type';
 
 @Component({
