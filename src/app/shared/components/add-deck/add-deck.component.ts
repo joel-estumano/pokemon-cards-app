@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { NgxSmartModalComponent, NgxSmartModalService } from 'ngx-smart-modal';
-import { Observable, Observer } from 'rxjs';
 import { CustomValidators } from 'src/app/shared/components/add-deck/form-validators/custom.validator';
 import { FormService } from 'src/app/services/form.service';
 import { add, update } from 'src/app/store/decks/decks.actions';
@@ -64,12 +63,6 @@ export class AddDeckComponent {
           ),
         ]
       ),
-    });
-  }
-
-  canDeactivate() {
-    return new Observable((observer: Observer<boolean>) => {
-      observer.next(this.form.dirty || this.form.touched);
     });
   }
 

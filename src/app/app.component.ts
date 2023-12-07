@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ThemeModeTtype } from './types/theme-mode.type';
 import { themeMode } from './store/theme-mode/theme-mode.seletor';
+import { APP_NAME } from './app.module';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +11,15 @@ import { themeMode } from './store/theme-mode/theme-mode.seletor';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'pokemon-cards-app';
 
   theme!: ThemeModeTtype;
 
-  constructor(private store: Store<{ theme: ThemeModeTtype }>) {
+  constructor(
+    @Inject(APP_NAME) private appName: string,
+    private title: Title,
+    private store: Store<{ theme: ThemeModeTtype }>
+  ) {
+    this.title.setTitle(this.appName);
     this.store.select(themeMode).subscribe((theme: ThemeModeTtype) => {
       this.theme = theme;
     });

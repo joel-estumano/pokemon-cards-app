@@ -6,6 +6,7 @@ import { BuyCardsDetailComponent } from './views/buy-cards-detail/buy-cards-deta
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { canDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
   {
     path: 'buy-cards',
     component: BuyCardsComponent,
+    canDeactivate:[canDeactivateGuard]
   },
 ];
 
