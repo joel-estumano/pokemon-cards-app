@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -12,7 +12,7 @@ import { DndDropEvent } from 'ngx-drag-drop';
 import { NgxSmartModalComponent, NgxSmartModalService } from 'ngx-smart-modal';
 import { Observable, Observer } from 'rxjs';
 import { CustomValidators } from 'src/app/form-validators/custom.validator';
-import { CanComponentDeactivate } from 'src/app/guards/can-deactivate-guard.service';
+import { CanComponentDeactivate, CanDeactivateType } from 'src/app/guards/can-deactivate-guard.service';
 import { FormService } from 'src/app/services/form.service';
 import { add, update } from 'src/app/store/decks/decks.actions';
 import { CardType } from 'src/app/types/card.type';
@@ -31,7 +31,7 @@ enum NamesEnum {
   templateUrl: './add-deck.component.html',
   styleUrl: './add-deck.component.scss',
 })
-export class AddDeckComponent implements AfterViewInit, CanComponentDeactivate {
+export class AddDeckComponent {
   namesEnum = NamesEnum;
   form!: FormGroup;
   modalRef!: NgxSmartModalComponent;
@@ -65,12 +65,6 @@ export class AddDeckComponent implements AfterViewInit, CanComponentDeactivate {
           ),
         ]
       ),
-    });
-  }
-
-  canDeactivate() {
-    return new Observable((observer: Observer<boolean>) => {
-      observer.next(this.form.dirty || this.form.touched);
     });
   }
 

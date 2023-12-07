@@ -1,20 +1,12 @@
-import {
-    ActivatedRouteSnapshot,
-    CanDeactivateFn,
-    RouterStateSnapshot,
-} from '@angular/router';
+import { CanDeactivateFn, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
+export type CanDeactivateType = Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree;
+
 export interface CanComponentDeactivate {
-    canDeactivate: () => Observable<boolean> | boolean;
+    canDeactivate: () => CanDeactivateType;
 }
 
-export const pendingChangesGuard: CanDeactivateFn<CanComponentDeactivate> = (
-    component: CanComponentDeactivate,
-    currentRoute: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState: RouterStateSnapshot
-) => {
-    alert('deactive: ' + component.canDeactivate())
-    return component.canDeactivate();
+export const canDeactivateGuard: CanDeactivateFn<CanComponentDeactivate> = (component: CanComponentDeactivate) => {
+    return component.canDeactivate ? component.canDeactivate() : true;
 };

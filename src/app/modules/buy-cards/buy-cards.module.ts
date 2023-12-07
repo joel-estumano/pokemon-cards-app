@@ -5,7 +5,7 @@ import { BuyCardsDetailComponent } from './views/buy-cards-detail/buy-cards-deta
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { pendingChangesGuard } from 'src/app/guards/can-deactivate-guard.service';
+import { canDeactivateGuard } from 'src/app/guards/can-deactivate-guard.service';
 
 const routes: Routes = [
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: '',
     component: BuyCardsComponent,
-    canDeactivate:[pendingChangesGuard]
+    canDeactivate:[canDeactivateGuard]
   },
 ];
 
